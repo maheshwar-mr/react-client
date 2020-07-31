@@ -1,4 +1,0 @@
-dispatch:
-# Route all urls to the React.js frontend
-  - url: "*/*"
-    service: default
