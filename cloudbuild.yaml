@@ -22,4 +22,3 @@ steps:
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy", "dispatch.yaml"]
     timeout: "30m0s"
-timeout: "100m0s"
