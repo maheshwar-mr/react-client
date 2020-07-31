@@ -1,5 +1,25 @@
+# below are the spteps executed by trigger
 steps:
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'build']
+# Step 1: For installing dependencies
+  - name: "gcr.io/cloud-builders/npm"
+    dir: 'ui'
+    args: ["install"]
+
+# Step 2: For creating optinimized build
+  - name: "gcr.io/cloud-builders/npm"
+    dir: 'ui'
+    args: ["run", "build"]
+
+# Step 3: This step will execute app.yaml in your ui folder and deploy your app based on the configuration specified
+  - name: "gcr.io/cloud-builders/gcloud"
+    dir: 'ui'
+    args: ["app", "deploy"]
+# timeout specified for this step as deployment may take more that default time(10min)
+    timeout: "30m0s"
+    
+# Step 4: This step is make sure that dispatch.yaml file is deployed once all the services are started
+  # dispatch.yaml deployment
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "dispatch.yaml"]
+    timeout: "30m0s"
+timeout: "100m0s"
